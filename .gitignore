@@ -6,5 +6,5 @@ contributors.bk
 contributors.tmp
 version.bk
 version.tmp
-node_modules
-gh-pages
+node_modules/
+gh-pages/
