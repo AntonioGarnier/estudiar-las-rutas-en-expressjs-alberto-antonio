@@ -16,7 +16,9 @@
    * Desarrollar un Gitbook con los apuntes de este estudio.
    * Desplegar el Gitbook en las plataformas vistas en clase.
 
-   [Despliegue en GitHub]()
+   [Despliegue en GitHub](https://antoniogarnier.github.io/estudiar-las-rutas-en-expressjs-alberto-antonio/)
+
+   [Despiegue en Heroku](https://estudiar-rutas-expressjs-anto.herokuapp.com/)
 
    [Despliegue en el IAAS]()
 
