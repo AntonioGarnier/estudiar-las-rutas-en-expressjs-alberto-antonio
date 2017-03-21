@@ -8,10 +8,10 @@ app.use(express.static(__dirname + 'gh-pages'));
 // views is directory for all template files
 /*app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
-
+*/
 app.get('/', function(request, response) {
-  response.render('pages/index');
-});*/
+  response.render('gh-pages');
+});
 
 app.listen(app.get('port'), function() {
   console.log('Node app is running on port', app.get('port'));
