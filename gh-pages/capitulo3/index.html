@@ -1,0 +1,312 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Using Middleware · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.2">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="../capitulo4/" />
+    
+    
+    <link rel="prev" href="../capitulo2/" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    Introducción
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="../capitulo1/">
+            
+                <a href="../capitulo1/">
+            
+                    
+                    Basic Routing
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="../capitulo2/">
+            
+                <a href="../capitulo2/">
+            
+                    
+                    Routing Guide
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.4" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    Using Middleware
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="../capitulo4/">
+            
+                <a href="../capitulo4/">
+            
+                    
+                    Router API Documentation
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >Using Middleware</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="using-middleware">Using Middleware</h1>
+<h2 id="introducci&#xF3;n">Introducci&#xF3;n</h2>
+<p>En este cap&#xED;tulo veremos como responde una aplicaci&#xF3;n a una petici&#xF3;n del cliente, es decir, cuando el cliente accede a una ruta dada. Y como act&#xFA;an los <strong>middleware</strong> de intermediarios entre la petici&#xF3;n y y la ruta.</p>
+<p>Una aplicaci&#xF3;n de express is b&#xE1;sicamente una serie de llamadas a funciones <strong>middleware</strong>. Estas funciones tienen acceso al &quot;request object&quot; (<strong>req</strong>), al &quot;responsive object&quot; (<strong>res</strong>) y a la funci&#xF3;n <strong>next()</strong>. Esta &#xFA;ltima es importante y se ha de llamar siempre que se quiere ceder el control al siguiente middleware ya que si no se hace, la petici&#xF3;n quedar&#xED;a sin atender.</p>
+<h2 id="funcionamiento">Funcionamiento</h2>
+<h3 id="ejemplo-b&#xE1;sico">Ejemplo b&#xE1;sico:</h3>
+<pre><code class="lang-javascript">   <span class="hljs-keyword">var</span> app = express();
+
+   app.get(<span class="hljs-string">&apos;/&apos;</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">req, res</span>) </span>{
+      res.send(<span class="hljs-string">&apos;Hola mundo!&apos;</span>);
+   });
+
+   app.get(<span class="hljs-string">&apos;/help&apos;</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">req, res</span>) </span>{
+      res.send(<span class="hljs-string">&apos;Ayuda!&apos;</span>);
+   });
+</code></pre>
+<p>Este es un sencillo ejemplo de funcionamiento en el que al acceder a la ruta <strong>&quot;/&quot;</strong> se muestra un &quot;Hola mundo!&quot; y al acceder a la ruta <strong>&quot;/help&quot;</strong> se muestra un &quot;Ayuda!&quot;.</p>
+<h3 id="a&#xF1;adiendo-un-middleware">A&#xF1;adiendo un middleware:</h3>
+<pre><code class="lang-javascript">   <span class="hljs-keyword">var</span> express = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;express&apos;</span>)
+   <span class="hljs-keyword">var</span> app = express()
+
+   app.use(<span class="hljs-string">&apos;/static/index&apos;</span>, express.static(<span class="hljs-string">&apos;gh-pages&apos;</span>))
+
+   app.listen(<span class="hljs-number">3000</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+      <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&apos;Example app listening on port 3000!&apos;</span>)
+   })
+</code></pre>
+<p>Aqu&#xED; hemos a&#xF1;adido un middleware que se encuentra entra la peticion y el acceso a la ruta y lo que hace es acceder a la carpeta &quot;gh-pages&quot; en la ruta especificada &quot;/static/index&quot;.</p>
+<h2 id="req-res-y-next">REQ, RES y next</h2>
+<p>El request req es la petici&#xF3;n y response res es la respuesta que se le va a devolver.</p>
+<p>La funci&#xF3;n next es la que hace saber que la etapa ha terminado y deja paso a la siguiente. Es muy importante llamarla para no quedarse colgado.</p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="../capitulo2/" class="navigation navigation-prev " aria-label="Previous page: Routing Guide">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="../capitulo4/" class="navigation navigation-next " aria-label="Next page: Router API Documentation">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Using Middleware","level":"1.4","depth":1,"next":{"title":"Router API Documentation","level":"1.5","depth":1,"path":"capitulo4/README.md","ref":"capitulo4/README.md","articles":[]},"previous":{"title":"Routing Guide","level":"1.3","depth":1,"path":"capitulo2/README.md","ref":"capitulo2/README.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"capitulo3/README.md","mtime":"2017-03-20T22:45:14.000Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-03-21T13:07:27.064Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
