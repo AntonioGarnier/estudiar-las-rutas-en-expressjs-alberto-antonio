@@ -11,7 +11,7 @@ app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 
 app.get('/', function(request, response) {
-  response.render('/gh-pages/index.html');
+  response.render('pages/gh-pages/index.html');
 });
 
 app.listen(app.get('port'), function() {
