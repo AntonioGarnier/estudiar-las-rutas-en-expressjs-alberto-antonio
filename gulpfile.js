@@ -9,6 +9,14 @@ gulp.task('deploy', function (cb) {
   });
 })
 
+gulp.task('iaas', function (cb) {
+  exec('nohup sudo -b node servidoriaas.js', function (err, stdout, stderr) {
+    console.log(stdout);
+    console.log(stderr);
+    cb(err);
+  });
+})
+
 gulp.task('build', function (cb) {
   exec('node scripts/generate-gitbook.js', function (err, stdout, stderr) {
     console.log(stdout);

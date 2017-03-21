@@ -1,0 +1,8 @@
+{
+  "name": "Estudiar las rutas en ExpressJS",
+  "description": "Despliegue gitbook en heroku",
+  "repository": "https://github.com/AntonioGarnier/estudiar-las-rutas-en-expressjs-alberto-antonio",
+  "logo": "http://node-js-sample.herokuapp.com/node.svg",
+  "keywords": ["node", "express", "static"],
+  "image": "heroku/nodejs"
+}
